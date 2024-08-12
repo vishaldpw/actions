@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#####  TASK 1
+#####  TASK 1 ### the module will enforce password history for the root user as well
 # Define the line to add
 line_to_add="enforce_for_root"
 
@@ -13,7 +13,7 @@ else
   echo "The line '$line_to_add' has been added to /etc/security/pwhistory.conf."
 fi
 
-#####  TASK 2
+#####  TASK 2 ## This will set inactive period for newly created users to 45
 # Set the default inactive period for new users to 45 days
 useradd -D -f 45
 
@@ -25,7 +25,7 @@ else
   exit 1
 fi
 
-#####  TASK 3
+#####  TASK 3  ### users cannot use last 24 passwords
 # Define the line to add or update
 config_line="remember = 24"
 config_file="/etc/security/pwhistory.conf"
@@ -40,3 +40,5 @@ else
   echo "$config_line" | sudo tee -a "$config_file" > /dev/null
   echo "Added new 'remember' setting: '$config_line'."
 fi
+
+
