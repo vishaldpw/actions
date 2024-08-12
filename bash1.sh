@@ -52,55 +52,72 @@ else
   echo "Added 'unlock_time = 900' to $unlock_time_config_file."
 fi
 
-#####  TASK 5 ### Set `difok = 2` in a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf
+#####  TASK 5 ### Create or modify a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf to set `difok` to `2` or more
 echo "Setting 'difok' to 2 in a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf..."
 pwquality_dir="/etc/security/pwquality.conf.d"
 pwquality_file="/etc/security/pwquality.conf"
-difok_config_line="difok = 2"
+difok_line="difok = 2"
 
 if [ -d "$pwquality_dir" ]; then
   conf_file=$(mktemp "$pwquality_dir/tempfile.XXXXXX")
   if grep -q "^difok" "$conf_file"; then
-    sudo sed -i "s/^difok\s*=.*/$difok_config_line/" "$conf_file"
+    sudo sed -i "s/^difok\s*=.*/$difok_line/" "$conf_file"
     echo "Updated 'difok' to 2 in $conf_file."
   else
-    echo "$difok_config_line" | sudo tee -a "$conf_file" > /dev/null
+    echo "$difok_line" | sudo tee -a "$conf_file" > /dev/null
     echo "Added 'difok = 2' to $conf_file."
   fi
   sudo mv "$conf_file" "$pwquality_dir/$(basename "$conf_file" .XXXXXX).conf"
 else
   if grep -q "^difok" "$pwquality_file"; then
-    sudo sed -i "s/^difok\s*=.*/$difok_config_line/" "$pwquality_file"
+    sudo sed -i "s/^difok\s*=.*/$difok_line/" "$pwquality_file"
     echo "Updated 'difok' to 2 in $pwquality_file."
   else
-    echo "$difok_config_line" | sudo tee -a "$pwquality_file" > /dev/null
+    echo "$difok_line" | sudo tee -a "$pwquality_file" > /dev/null
     echo "Added 'difok = 2' to $pwquality_file."
   fi
 fi
 
-#####  TASK 6 ### Set `maxrepeat = 3` in a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf
+#####  TASK 6 ### Create or modify a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf to set `maxrepeat` to `3` or less and not `0`
 echo "Setting 'maxrepeat' to 3 in a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf..."
-maxrepeat_config_line="maxrepeat = 3"
+maxrepeat_line="maxrepeat = 3"
 
 if [ -d "$pwquality_dir" ]; then
   conf_file=$(mktemp "$pwquality_dir/tempfile.XXXXXX")
   if grep -q "^maxrepeat" "$conf_file"; then
-    sudo sed -i "s/^maxrepeat\s*=.*/$maxrepeat_config_line/" "$conf_file"
+    sudo sed -i "s/^maxrepeat\s*=.*/$maxrepeat_line/" "$conf_file"
     echo "Updated 'maxrepeat' to 3 in $conf_file."
   else
-    echo "$maxrepeat_config_line" | sudo tee -a "$conf_file" > /dev/null
+    echo "$maxrepeat_line" | sudo tee -a "$conf_file" > /dev/null
     echo "Added 'maxrepeat = 3' to $conf_file."
   fi
   sudo mv "$conf_file" "$pwquality_dir/$(basename "$conf_file" .XXXXXX).conf"
 else
   if grep -q "^maxrepeat" "$pwquality_file"; then
-    sudo sed -i "s/^maxrepeat\s*=.*/$maxrepeat_config_line/" "$pwquality_file"
+    sudo sed -i "s/^maxrepeat\s*=.*/$maxrepeat_line/" "$pwquality_file"
     echo "Updated 'maxrepeat' to 3 in $pwquality_file."
   else
-    echo "$maxrepeat_config_line" | sudo tee -a "$pwquality_file" > /dev/null
+    echo "$maxrepeat_line" | sudo tee -a "$pwquality_file" > /dev/null
     echo "Added 'maxrepeat = 3' to $pwquality_file."
   fi
 fi
 
+#####  TASK 7 ### Add `enforce_for_root` to a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf
+echo "Adding 'enforce_for_root' to a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf..."
+pwquality_root_file="$pwquality_dir/50-pwroot.conf"
 
-
+if [ -d "$pwquality_dir" ]; then
+  if grep -q "^$line_to_add" "$pwquality_root_file"; then
+    echo "The line '$line_to_add' already exists in $pwquality_root_file."
+  else
+    echo "$line_to_add" | sudo tee -a "$pwquality_root_file" > /dev/null
+    echo "Added '$line_to_add' to $pwquality_root_file."
+  fi
+else
+  if grep -q "^$line_to_add" "$pwquality_file"; then
+    echo "The line '$line_to_add' already exists in $pwquality_file."
+  else
+    echo "$line_to_add" | sudo tee -a "$pwquality_file" > /dev/null
+    echo "Added '$line_to_add' to $pwquality_file."
+  fi
+fi
