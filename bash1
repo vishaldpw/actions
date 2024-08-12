@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#####  TASK 1
 # Define the line to add
 line_to_add="enforce_for_root"
 
@@ -12,6 +13,7 @@ else
   echo "The line '$line_to_add' has been added to /etc/security/pwhistory.conf."
 fi
 
+#####  TASK 2
 # Set the default inactive period for new users to 45 days
 useradd -D -f 45
 
@@ -21,4 +23,20 @@ if [ $? -eq 0 ]; then
 else
   echo "Failed to set the default inactive period."
   exit 1
+fi
+
+#####  TASK 3
+# Define the line to add or update
+config_line="remember = 24"
+config_file="/etc/security/pwhistory.conf"
+
+# Check if the line is already present in the file
+if grep -q "^\s*remember\s*=" "$config_file"; then
+  # If the line is present, update it
+  sudo sed -i "s/^\s*remember\s*=.*/$config_line/" "$config_file"
+  echo "Updated existing 'remember' setting to '$config_line'."
+else
+  # If the line is not present, add it
+  echo "$config_line" | sudo tee -a "$config_file" > /dev/null
+  echo "Added new 'remember' setting: '$config_line'."
 fi
