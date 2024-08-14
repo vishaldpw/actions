@@ -1,4 +1,3 @@
-#! this will be second script
 #!/bin/bash
 
 # 1. Edit the /etc/ssh/sshd_config file
