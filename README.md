@@ -1,2 +1,2 @@
-# Bash Script
+# Shell Script
 
