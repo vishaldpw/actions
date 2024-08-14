@@ -1,3 +1,2 @@
-# actions
-# testing the push
+# Bash Script
 
