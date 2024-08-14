@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #Run the following script to verify the active authselect profile doesn't include the `remember` argument on the `pam_unix.so` module lines:
+echo "starting Script 4"
+
 {
  l_pam_profile="$(head -1 /etc/authselect/authselect.conf)"
  if grep -Pq -- '^custom\/' <<< "$l_pam_profile"; then
@@ -29,4 +31,5 @@ Output should be similar to:
 }
 
 Run the following command to update the `password-auth` and system-auth` files in `/etc/pam.d` to include pam_unix.so without the remember argument:
-# authselect apply-changes
+# authselect apply-changes,
+echo "Ending Script 4"

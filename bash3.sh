@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #- Remove excessive permissions from local interactive users home directories
 #- Update the home directory's owner
+echo "starting Script 3"
 
 {
  l_output2=""
@@ -35,3 +36,5 @@
  echo -e "\n$l_output2"
  fi
 }
+
+echo "Ending Script 3"
