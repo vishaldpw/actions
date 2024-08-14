@@ -1,26 +1,35 @@
 #!/bin/bash
 
-# Run bash1.sh
-./bash1.sh
+# Function to run a script and check its success
+run_script() {
+    local script_name=$1
 
-# Check if bash1.sh executed successfully
-if [ $? -eq 0 ]; then
-    echo "bash1.sh executed successfully."
+    # Run the script
+    ./$script_name
 
-    # Sleep for 30 seconds
-    echo "Sleeping for 30 seconds before running bash2.sh..."
-    sleep 30
-
-    # Run bash2.sh
-    ./bash2.sh
-
-    # Check if bash2.sh executed successfully
+    # Check if the script executed successfully
     if [ $? -eq 0 ]; then
-        echo "bash2.sh executed successfully."
-    else
-        echo "bash2.sh failed to execute."
-    fi
+        echo "$script_name executed successfully."
 
-else
-    echo "bash1.sh failed to execute. Skipping bash2.sh."
-fi
+        # Sleep for 30 seconds before the next script
+        echo "Sleeping for 30 seconds before proceeding..."
+        sleep 30
+    else
+        echo "$script_name failed to execute. Skipping subsequent scripts."
+        exit 1
+    fi
+}
+
+# Run bash1.sh
+run_script "bash1.sh"
+
+# Run bash2.sh
+run_script "bash2.sh"
+
+# Run bash3.sh
+run_script "bash3.sh"
+
+# Run bash4.sh
+run_script "bash4.sh"
+
+echo "All scripts executed successfully."
