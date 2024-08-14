@@ -24,4 +24,3 @@ if [ $? -eq 0 ]; then
 else
     echo "bash1.sh failed to execute. Skipping bash2.sh."
 fi
-
