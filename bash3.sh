@@ -38,3 +38,4 @@ echo "starting Script 3"
 }
 
 echo "Ending Script 3"
+echo "All tasks completed of Script 3."
