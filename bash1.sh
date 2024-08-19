@@ -145,3 +145,4 @@ else
 fi
 
 echo "Ending Task 7"
+echo "All tasks completed of Script 1."
