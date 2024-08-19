@@ -30,7 +30,7 @@ run_script "bash2.sh"
 run_script "bash3.sh"
 
 # Run bash4.sh
-### Note Bash4 is having issues, bash5 is bash 4 :(
-run_script "bash5.sh"
+### 
+run_script "bash4.sh"
 
 echo "All scripts executed successfully."
