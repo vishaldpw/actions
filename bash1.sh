@@ -1,6 +1,8 @@
 #!/bin/bash
 
-#####  TASK 1 ### the module will enforce password history for the root user as well
+#####  TASK 1 ###
+echo "Starting Task 1: Enforce password history for the root user"
+
 # Define the line to add
 line_to_add="enforce_for_root"
 
@@ -13,7 +15,11 @@ else
   echo "The line '$line_to_add' has been added to /etc/security/pwhistory.conf."
 fi
 
-#####  TASK 2 ## This will set inactive period for newly created users to 45
+echo "Ending Task 1"
+
+#####  TASK 2 ###
+echo "Starting Task 2: Set inactive period for newly created users to 45 days"
+
 # Set the default inactive period for new users to 45 days
 useradd -D -f 45
 
@@ -25,7 +31,11 @@ else
   exit 1
 fi
 
-#####  TASK 3  ### users cannot use last 24 passwords
+echo "Ending Task 2"
+
+#####  TASK 3 ###
+echo "Starting Task 3: Ensure users cannot reuse the last 24 passwords"
+
 # Define the line to add or update
 password_history_line="remember = 24"
 password_history_file="/etc/security/pwhistory.conf"
@@ -41,8 +51,11 @@ else
   echo "Added new 'remember' setting: '$password_history_line'."
 fi
 
-#####  TASK 4 ### Update or add the `unlock_time` setting in /etc/security/faillock.conf
-echo "Updating /etc/security/faillock.conf to set unlock_time to 900 seconds..."
+echo "Ending Task 3"
+
+#####  TASK 4 ###
+echo "Starting Task 4: Update or add the 'unlock_time' setting in /etc/security/faillock.conf"
+
 unlock_time_config_file="/etc/security/faillock.conf"
 if grep -q "^unlock_time" "$unlock_time_config_file"; then
   sudo sed -i 's/^unlock_time\s*=.*/unlock_time = 900/' "$unlock_time_config_file"
@@ -52,8 +65,11 @@ else
   echo "Added 'unlock_time = 900' to $unlock_time_config_file."
 fi
 
-#####  TASK 5 ### Create or modify a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf to set `difok` to `2` or more
-echo "Setting 'difok' to 2 in a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf..."
+echo "Ending Task 4"
+
+#####  TASK 5 ###
+echo "Starting Task 5: Set 'difok' to 2 or more"
+
 pwquality_dir="/etc/security/pwquality.conf.d"
 pwquality_file="/etc/security/pwquality.conf"
 difok_line="difok = 2"
@@ -78,8 +94,11 @@ else
   fi
 fi
 
-#####  TASK 6 ### Create or modify a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf to set `maxrepeat` to `3` or less and not `0`
-echo "Setting 'maxrepeat' to 3 in a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf..."
+echo "Ending Task 5"
+
+#####  TASK 6 ###
+echo "Starting Task 6: Set 'maxrepeat' to 3 or less"
+
 maxrepeat_line="maxrepeat = 3"
 
 if [ -d "$pwquality_dir" ]; then
@@ -102,8 +121,11 @@ else
   fi
 fi
 
-#####  TASK 7 ### Add `enforce_for_root` to a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf
-echo "Adding 'enforce_for_root' to a .conf file in /etc/security/pwquality.conf.d/ or /etc/security/pwquality.conf..."
+echo "Ending Task 6"
+
+#####  TASK 7 ###
+echo "Starting Task 7: Add 'enforce_for_root' setting"
+
 pwquality_root_file="$pwquality_dir/50-pwroot.conf"
 
 if [ -d "$pwquality_dir" ]; then
@@ -121,3 +143,5 @@ else
     echo "Added '$line_to_add' to $pwquality_file."
   fi
 fi
+
+echo "Ending Task 7"
