@@ -145,4 +145,4 @@ if command -v crond >/dev/null 2>&1; then
 fi
 echo "Ending Task 15"
 
-echo "All tasks completed."
+echo "All tasks completed of Script 2."
