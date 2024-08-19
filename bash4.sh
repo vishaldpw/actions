@@ -27,3 +27,4 @@ if echo "$grep_output" | grep -q 'remember='; then
 fi
 
 echo "Ending Script 4"
+echo "All tasks completed of Script 4."
