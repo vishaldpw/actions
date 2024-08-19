@@ -7,10 +7,10 @@
 sudo su -
 
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/vishaldpw/actions.git
 
 # Navigate to the directory (if applicable)
-cd actions
+cd /root/actions
 
 # Make the scripts executable
 chmod +x bash* master.sh
