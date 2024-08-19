@@ -7,9 +7,10 @@
 sudo su -
 
 # Clone the repository
+cd /root
 git clone https://github.com/vishaldpw/actions.git
 
-# Navigate to the directory (if applicable)
+# Navigate to the directory 
 cd /root/actions
 
 # Make the scripts executable
