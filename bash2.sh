@@ -99,15 +99,15 @@ echo "Task 10: Set sticky bit on all world-writable directories."
 echo "Ending Task 10"
 
 ##### TASK 11 ###
-echo "Starting Task 11: Set AllowUsers, AllowGroups, and DenyGroups in /etc/ssh/sshd_config"
+#echo "Starting Task 11: Set AllowUsers, AllowGroups, and DenyGroups in /etc/ssh/sshd_config"
 
-if grep -q "^Include" "$SSHD_CONFIG"; then
-    sed -i '/^Include /i AllowUsers <userlist>' "$SSHD_CONFIG"
-    sed -i '/^Include /i AllowGroups <grouplist>' "$SSHD_CONFIG"
-    sed -i '/^Include /i DenyGroups <grouplist>' "$SSHD_CONFIG"
-    echo "Task 11: Set AllowUsers, AllowGroups, and DenyGroups in $SSHD_CONFIG."
-fi
-echo "Ending Task 11"
+#if grep -q "^Include" "$SSHD_CONFIG"; then
+#    sed -i '/^Include /i AllowUsers <userlist>' "$SSHD_CONFIG"
+#    sed -i '/^Include /i AllowGroups <grouplist>' "$SSHD_CONFIG"
+#    sed -i '/^Include /i DenyGroups <grouplist>' "$SSHD_CONFIG"
+#    echo "Task 11: Set AllowUsers, AllowGroups, and DenyGroups in $SSHD_CONFIG."
+#fi
+#echo "Ending Task 11"
 
 ##### TASK 12 ###
 echo "Starting Task 12: Disable chacha20-poly1305 ciphers for SSH"
