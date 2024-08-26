@@ -74,3 +74,38 @@ sudo sysctl -p "$CONF_FILE"
 # Verify the change
 sysctl $PARAMETER
 
+#!/bin/bash
+
+# Directory and file paths
+CONF_DIR="/etc/security/pwquality.conf.d"
+MAIN_CONF="/etc/security/pwquality.conf"
+
+# The desired setting
+SETTING="maxsequence = 3"
+
+# Create or modify the main configuration file
+if grep -q "^\s*maxsequence\s*=" "$MAIN_CONF"; then
+    sed -ri 's/^\s*maxsequence\s*=.*/maxsequence = 3/' "$MAIN_CONF"
+else
+    echo "$SETTING" >> "$MAIN_CONF"
+fi
+
+# Create or modify a .conf file in the directory
+CONF_FILE="$CONF_DIR/50-pwmaxsequence.conf"
+
+# Ensure the directory exists
+mkdir -p "$CONF_DIR"
+
+if grep -q "^\s*maxsequence\s*=" "$CONF_FILE"; then
+    sed -ri 's/^\s*maxsequence\s*=.*/maxsequence = 3/' "$CONF_FILE"
+else
+    echo "$SETTING" >> "$CONF_FILE"
+fi
+
+# Ensure maxsequence is set to 3 or less, but not 0
+if grep -q "^\s*maxsequence\s*= 0" "$MAIN_CONF" || grep -q "^\s*maxsequence\s*= 0" "$CONF_FILE"; then
+    echo "Error: maxsequence cannot be set to 0."
+    exit 1
+fi
+
+
