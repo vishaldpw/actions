@@ -50,3 +50,27 @@ for module in "${modules[@]}"; do
         echo "Module $module is not currently loaded."
     fi
 done
+
+
+
+
+# Define the parameter and value
+PARAMETER="kernel.yama.ptrace_scope"
+VALUE="1"
+CONF_FILE="/etc/sysctl.d/99-yama-ptrace.conf"
+
+# Check if the parameter is already set in /etc/sysctl.conf or any .conf file in /etc/sysctl.d/
+if grep -q "^$PARAMETER" /etc/sysctl.conf /etc/sysctl.d/*.conf 2>/dev/null; then
+    echo "The parameter $PARAMETER is already set. Updating its value to $VALUE."
+    sudo sed -i "s/^$PARAMETER.*/$PARAMETER = $VALUE/" /etc/sysctl.conf /etc/sysctl.d/*.conf
+else
+    echo "The parameter $PARAMETER is not set. Adding it to $CONF_FILE."
+    echo "$PARAMETER = $VALUE" | sudo tee -a "$CONF_FILE"
+fi
+
+# Apply the changes
+sudo sysctl -p "$CONF_FILE"
+
+# Verify the change
+sysctl $PARAMETER
+
