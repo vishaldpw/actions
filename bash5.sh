@@ -20,3 +20,33 @@ update-crypto-policies --set DEFAULT:NO-SHA1:NO-WEAKMAC:NO-SSHCBC:NO-SSHCHACHA20
 # Output a message to confirm the cryptographic policy was updated
 echo "System-wide cryptographic policy updated with the new subpolicy."
 
+echo "Ensure unused filesystems kernel modules are not available"
+# List of modules to unload
+modules=(
+    "afs"            # CVE-2022-37402
+    "ceph"           # CVE-2022-0670
+    "cifs"           # CVE-2022-29869
+    "exfat"          # CVE-2022-29973
+    "fat"            # CVE-2022-22043
+    "fscache"        # CVE-2022-3630
+    "fuse"           # CVE-2023-0386
+    "gfs2"           # CVE-2023-3212
+    "nfs_common"     # CVE-2023-6660 (this may refer to a component rather than a module; typically "nfs" or "nfs_common" is not a direct module)
+    "nfsd"           # CVE-2022-43945
+    "smbfs_common"   # CVE-2022-2585 (typically refers to the "cifs" module or a similar one)
+)
+
+# Attempt to unload each module
+for module in "${modules[@]}"; do
+    if lsmod | grep -q "^$module"; then
+        echo "Unloading module: $module"
+        modprobe -r $module
+        if [[ $? -eq 0 ]]; then
+            echo "Successfully unloaded $module"
+        else
+            echo "Failed to unload $module. It might be in use or not loaded."
+        fi
+    else
+        echo "Module $module is not currently loaded."
+    fi
+done
