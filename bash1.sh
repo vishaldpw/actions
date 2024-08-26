@@ -145,4 +145,10 @@ else
 fi
 
 echo "Ending Task 7"
+
+#####  TASK 8 ###
+echo "Starting Task 8:  cron"
+chown root:root /etc/cron.d/
+chmod og-rwx /etc/cron.d/
+echo "Ending Task 8"
 echo "All tasks completed of Script 1."
