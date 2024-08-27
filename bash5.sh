@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Starting Script 5"
 # Define the subpolicy filename
 PMOD_FILE="/etc/crypto-policies/policies/modules/NO-SSHCHACHA20.pmod"
 
@@ -96,6 +97,7 @@ else
     echo "$SETTING" >> "$CONF_FILE"
 fi
 
+echo "Completed Script 5"
 # Ensure maxsequence is set to 3 or less, but not 0
 if grep -q "^\s*maxsequence\s*= 0" "$MAIN_CONF" || grep -q "^\s*maxsequence\s*= 0" "$CONF_FILE"; then
     echo "Error: maxsequence cannot be set to 0."
