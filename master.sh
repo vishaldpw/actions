@@ -37,4 +37,8 @@ run_script "bash4.sh"
 ### 
 run_script "bash5.sh"
 
+# Run bash5.sh
+### 
+run_script "bash6.sh"
+
 echo "All scripts executed successfully."
